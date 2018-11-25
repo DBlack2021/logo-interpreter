@@ -1,47 +1,44 @@
 let textbox;
-let hue, sat, bright = 100;
 var pendown = true; 
 
 var Command = {
-    fd: function (dist) {
+    fd: function(dist) {
         if(pendown) {
             line(0, 0, dist, 0)
         }
         translate(dist, 0);
     },
 
-    bd: function (dist) {
+    bd: function(dist) {
         if(pendown) {
             line(0, 0, -dist, 0)
         }
         translate(-dist, 0);
     },
 
-    rt: function (dist) {
+    rt: function(dist) {
         rotate(dist)
     },
 
-    lt: function (dist) {
+    lt: function(dist) {
         rotate(-dist)
     },
 
-    //TODO: Combine hu, st, br into one big clr function where the syntax is clr[h,s,b] (NO SPACES)
-    hu: function(col) {
-        hue = col;
+    pu: function(dist) {
+        pendown = false;
     },
 
-    st: function(col) {
-        sat = col;
+    pd: function(dist) {
+        pendown = true;
     },
 
-    br: function(col) {
-        bright = col;
+    clr: function(r, g, b) { //more than one parameter will be separated by spaces: clr[255 0 255]
+        stroke(r, g, b);
     }
 };
 
 function setup() {
     angleMode(DEGREES);
-    colorMode(HSB);
     createCanvas(400, 400);
     stroke(255, 0, 255);
     background(0);
@@ -57,16 +54,19 @@ function setup() {
         translate(width/2, height/2);
         let text = textbox.value();
         let tokens = text.split(' ');
-    
-        pendown = true;
-
-        console.log(tokens);
 
         //loop through tokens, find commands and run correlated functions
         for(var i = 0; i < tokens.length; i++) {
             try {
                 stroke(hue, sat, bright);
-                Command[tokens[i]](tokens[++i]);
+                if(tokens[i].includes("[")) {
+                    let parameters = tokens[i].match(/\[.*?\]/)[1] //what's inside of [] 
+
+                    console.log(parameters) //Find what's inside of []
+                } else {
+                    Command[tokens[i]](tokens[++i]);
+                }
+            //if we can't find the function we throw an error
             } catch (error) {
                 alert(tokens[i] + " is not a valid function");
             }
@@ -78,16 +78,9 @@ function setup() {
     clearB.mousePressed(function() {
         background(0);
     });
-
-    //TODO: Add run button and pu/pd
-    /*
-    More complicated command ideas:
-    clr (color)
-    lp (loop)
-    */
-
 }
   
 function draw() {
     
 }
+
