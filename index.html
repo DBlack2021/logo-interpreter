@@ -2,13 +2,57 @@
 <html>
     <head>
         <title>LOGO Interpreter</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
         <script src="sketch.js"></script>
     </head>
 
     <body>
+        <div>
+            <h1>Documentation</h1>
+
+            <table id = "doc-table" border="1">
+                    <tbody>
+                    <tr>
+                        <th>Command </th>
+                        <th>Syntax </th>
+                    </tr>
+                    <tr>
+                        <td>Forward</td>
+                        <td>fd 60</td>
+                    </tr>
+                    <tr>
+                        <td>Backward</td>
+                        <td>bd 60</td>
+                    </tr>
+                    <tr>
+                        <td>Left</td>
+                        <td>lt 60</td>
+                    </tr>
+                    <tr>
+                        <td>Right</td>
+                        <td>rt 60</td>
+                    </tr>
+                    <tr>
+                        <td>Pen Up</td>
+                        <td>pu</td>
+                    </tr>
+                    <tr>
+                        <td>Pen Down</td>
+                        <td>pd</td>
+                    </tr>
+                    <tr>
+                        <td>Color</td>
+                        <td>clr[r,g,b]</td>
+                    </tr>
+                    </tbody>
+                    </table>
+        </div>
+
         <div> <!-- <div> is only here so that it looks nice, this has no functionality code wise -->
+            <br>
+            <br>    
             <textarea rows="3" cols="55" id="turtle-text">fd 60 rt 120 fd 60 rt 120 fd 60 rt 120</textarea>
         </div>
     </body>
