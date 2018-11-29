@@ -55,12 +55,27 @@ function setup() {
         background(0);
         translate(width/2, height/2);
         let text = textbox.value();
+
+        if(text.includes("[")) { //clean up parameters
+            /*
+                PLAN: 
+                FIRST: Find all the text in brackets using REGEX
+                THEN: Go there and get rid of spaces again using REGEX
+            */
+            //  REGEX FOR BRACKETS     \[.*?\]/g
+        }
+
         let tokens = text.split(' ');
+
+        //TODO: Make it so parameters separated by commas can have spaces in between them
+        //eg. clr[255, 0, 0] rather than clr[255,0,0]
 
         //loop through tokens, find commands and run correlated functions
         for(var i = 0; i < tokens.length; i++) {
             console.log(tokens[i]);
             if(tokens[i].includes("[")) { // if the command in question takes more than one parameter
+
+                /**************************************************************************************** */
                 let command = getCommand(tokens[i]);
                 if(COMMANDS.includes(command)) { //function that takes in arguments like clr[r,g,b] 
                     let parameters = getParams(tokens[i])
@@ -68,6 +83,8 @@ function setup() {
                 } else { //function like a loop rpt 3[code]
 
                 }
+                /**************************************************************************************** */
+                
             } else {
                 Command[tokens[i]](tokens[++i]);
             }  
