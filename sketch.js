@@ -1,5 +1,7 @@
 let textbox;
-var pendown = true; 
+var pendown = true;
+
+const COMMANDS = ["fd", "bd", "rt", "lt", "pu", "pd", "clr", "rpt"];
 
 var Command = {
     fd: function(dist) {
@@ -32,7 +34,7 @@ var Command = {
         pendown = true;
     },
 
-    clr: function(r, g, b) { //more than one parameter will be separated by spaces: clr[255 0 255]
+    clr: function(r, g, b) { //more than one parameter will be separated by commas: clr[255,0,255]
         stroke(r, g, b);
     }
 };
@@ -58,13 +60,14 @@ function setup() {
         //loop through tokens, find commands and run correlated functions
         for(var i = 0; i < tokens.length; i++) {
             console.log(tokens[i]);
-            if(tokens[i].includes("[")) {
-                let params = getParams(tokens[i]);
-                console.table(params);
+            if(tokens[i].includes("[")) { // if the command in question takes more than one parameter
                 let command = getCommand(tokens[i]);
-                console.log(command);
-                Command[command](params[0], params[1], params[2]);
-                // console.log(parameters) //Find what's inside of []
+                if(COMMANDS.includes(command)) { //function that takes in arguments like clr[r,g,b] 
+                    let parameters = getParams(tokens[i])
+                    Command[command].apply(null, parameters); //run command based on parameters
+                } else { //function like a loop rpt 3[code]
+
+                }
             } else {
                 Command[tokens[i]](tokens[++i]);
             }  
